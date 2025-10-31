@@ -1,44 +1,53 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* visual background glow & subtle animated gradient blobs */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html {
+  scroll-behavior: smooth;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #0f0c29;
+  color: white;
+  overflow-x: hidden;
+}
+.background-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(600px 300px at 10% 20%, rgba(124,92,252,0.10), transparent 8%),
+              radial-gradient(500px 260px at 85% 80%, rgba(42,208,255,0.08), transparent 12%),
+              linear-gradient(180deg, rgba(7,8,11,0.6), rgba(7,8,11,0.9));
+  filter: blur(30px);
+  animation: floatBG 12s ease-in-out infinite;
+  transform: translateZ(0);
+}
+
+@keyframes floatBG{
+  0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: translateY(-12px) scale(1.02) rotate(1deg); opacity: 0.98; }
+  100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* small tweak so content isn't hidden under navbar on smaller screens */
+@media (max-width:720px){
+  .app-root .page-wrap{padding-top:64px}
+}
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    background-position: 100% 50%;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  100% {
+    background-position: 0% 50%;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 /* Navbar animation */
 .site-nav {
@@ -63,4 +72,3 @@
     transform: translateY(0);
   }
 }
-

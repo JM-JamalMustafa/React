@@ -1,0 +1,119 @@
+.projects {
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #2A9D8F);
+  background-size: 400% 400%;
+  animation: gradientMove 18s ease infinite;
+  padding: 80px 10%;
+  color: #fff;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.8rem;
+  color: #00adb5;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #e9c46a;
+  margin: 10px auto 0;
+}
+
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  backdrop-filter: blur(10px);
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.project-card h3 {
+  color: #00adb5;
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+}
+
+.project-card p {
+  color: #f1f1f1;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.tags {
+  margin-bottom: 15px;
+}
+
+.tags span {
+  background: #e9c46a;
+  color: #222;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin: 0 5px;
+  font-size: 0.9rem;
+}
+
+.project-links a {
+  display: inline-block;
+  background: #00adb5;
+  color: white;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+.project-links a:hover {
+  background: #e9c46a;
+  color: #000;
+}
+
+/* Animation */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  .project-card {
+    padding: 20px;
+  }
+
+  .project-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .project-card p {
+    font-size: 0.95rem;
+  }
+}

@@ -1,78 +1,33 @@
-// src/Navbar.jsx
-import "./Navbar.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import "./Navbar.css";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-  const glowRef = useRef(null);
-
-  // Close menu on window resize
+  const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    const onResize = () => {
-      if (window.innerWidth > 768) setOpen(false);
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Glow follows mouse
-  const handleMouseMove = (e) => {
-    if (glowRef.current) {
-      glowRef.current.style.left = `${e.clientX}px`;
-      glowRef.current.style.top = `${e.clientY}px`;
-    }
-  };
-
-  const links = [
-    { id: "home", name: "Home", path: "/" },
-    { id: "about", name: "About", path: "/about" },
-    { id: "skills", name: "Skills", path: "/skills" },
-    { id: "projects", name: "Projects", path: "/projects" },
-    { id: "contact", name: "Contact", path: "/contact" },
-  ];
+  const linkClass = ({ isActive }) => (isActive ? "nav-link active" : "nav-link");
 
   return (
-    <header className="site-nav" onMouseMove={handleMouseMove}>
-      <span className="nav-glow" ref={glowRef}></span>
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="nav-inner">
+        <div className="brand">
+          <NavLink to="/" className="brand-link">Kashif</NavLink>
+        </div>
 
-      <div className="nav-inner fade-in">
-        <NavLink className="logo" to="/" end>
-          Kashif Ali
-        </NavLink>
-
-        <nav className={`nav-links ${open ? "open" : ""}`} aria-label="Main">
-          {links.map((l, i) => (
-            <div
-              key={l.id}
-              className="nav-item slide-up"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <NavLink
-                to={l.path}
-                end={l.path === "/"}
-                className={({ isActive }) =>
-                  `nav-link ${isActive ? "active" : ""}`
-                }
-                onClick={() => setOpen(false)}
-              >
-                <span className="link-text">{l.name}</span>
-              </NavLink>
-            </div>
-          ))}
-        </nav>
-
-        <button
-          className={`hamburger ${open ? "is-active" : ""}`}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        <div className="nav-links">
+          <NavLink to="/" className={linkClass} end>Home</NavLink>
+          <NavLink to="/about" className={linkClass}>About</NavLink>
+          <NavLink to="/projects" className={linkClass}>Projects</NavLink>
+          <NavLink to="/skills" className={linkClass}>Skills</NavLink>
+          <NavLink to="/contact" className={linkClass}>Contact</NavLink>
+        </div>
       </div>
-    </header>
+    </nav>
   );
 }
